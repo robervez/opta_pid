@@ -10,6 +10,7 @@ int InizioCiclo(){
   if (iCurrentState)  return 0;
   // porto FSM su primo stato
   iCurrentState=1;
+  
   return 1;
 
 }
@@ -64,6 +65,33 @@ int ImpostaParametro(String &tmp){
 }
 
 
+int ImpostaSetPoint(String &tmp){
+ 
+  static String strs[10];
+  int nparam = StringSplit(tmp, strs, ';');
+  //DEBUG Serial.println(nparam);
+  if (nparam != 2) return 0;
+   iCurrentSetPoint = strs[1].toInt(); 
+   return 1;
+
+   
+}
+
+int StampaValori(String &tmp){
+ 
+  static String strs[10];
+  int nparam = StringSplit(tmp, strs, ';');
+  //DEBUG Serial.println(nparam);
+  if (nparam != 2) return 0;
+  if (strs[1].startsWith("SETPOINT"))     {Serial.println(iCurrentSetPoint); return 1;}
+  if (strs[1].startsWith("PIDINPUT"))     {Serial.println(lastPIDinput); return 1;}
+   return 0;
+
+   
+}
+
+
+
 int CallbackSerial (){
   
 
@@ -78,6 +106,9 @@ int CallbackSerial (){
 
   if (tmp.startsWith("SETCYCLE")) return ImpostaCicloCompleto(tmp);
   if (tmp.startsWith("SETPARAM")) return ImpostaParametro(tmp);
+  if (tmp.startsWith("SETPOINT")) return ImpostaSetPoint(tmp);
+  if (tmp.startsWith("READ")) return StampaValori(tmp);
+  
   return 0;
 }
 

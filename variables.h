@@ -5,7 +5,7 @@
 #define PIN_INPUTPID 0
 #define PIN_INPUT_TEMP 1
 
-#define PIN_OUTPUTPID 2
+#define PIN_OUTPUTPID 5
 
 // parametri impostabili da seriale
 int TPID;  // millis tra ogni lettura PID
@@ -44,4 +44,4 @@ int lastPIDinput;
 
 
 
-#define SERIALBAUD 460800
+#define SERIALBAUD 9600

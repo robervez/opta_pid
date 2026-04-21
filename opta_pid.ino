@@ -153,7 +153,10 @@ void setup() {
 
   iCurrentState=0;
 
+  Serial.println("initializing pid...");
+
   setupPID();
+  Serial.println("done.");
   
   delay(100);
 
@@ -165,7 +168,8 @@ void loop() {
   if (millis()-iTimePID > TPID)
   {
     iTimePID = millis();
-    lastPIDinput = analogRead(PIN_INPUTPID);
+    lastPIDinput = 1024- analogRead(PIN_INPUTPID);
+    
     GestionePID();
   }
 
