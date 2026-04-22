@@ -83,12 +83,24 @@ int StampaValori(String &tmp){
   int nparam = StringSplit(tmp, strs, ';');
   //DEBUG Serial.println(nparam);
   if (nparam != 2) return 0;
-  if (strs[1].startsWith("SETPOINT"))     {Serial.println(iCurrentSetPoint); return 1;}
-  if (strs[1].startsWith("PIDINPUT"))     {Serial.println(lastPIDinput); return 1;}
+  if (strs[1].startsWith("SETPOINT"))     {Serial.print("#");Serial.println(iCurrentSetPoint); return 1;}
+  if (strs[1].startsWith("PIDINPUT"))     {Serial.print("#");Serial.println(lastPIDinput); return 1;}
    return 0;
-
-   
+  
 }
+
+int AbilitaOutput(String &tmp){
+ 
+  static String strs[10];
+  int nparam = StringSplit(tmp, strs, ';');
+  //DEBUG Serial.println(nparam);
+  if (nparam != 2) return 0;
+  if (strs[1].startsWith("ENABLE"))     {bOutputEnable=true; return 1;}
+  if (strs[1].startsWith("DISABLE"))     {bOutputEnable=false; return 1;}
+   return 0;
+  
+}
+
 
 
 
@@ -108,7 +120,8 @@ int CallbackSerial (){
   if (tmp.startsWith("SETPARAM")) return ImpostaParametro(tmp);
   if (tmp.startsWith("SETPOINT")) return ImpostaSetPoint(tmp);
   if (tmp.startsWith("READ")) return StampaValori(tmp);
-  
+   if (tmp.startsWith("OUTPUT")) return AbilitaOutput(tmp);
+ 
   return 0;
 }
 
@@ -122,8 +135,8 @@ void GestioneComandiSeriale(){
     {
       // callback
       int ris= CallbackSerial();
-      if (ris) Serial.println("OK");
-        else  Serial.println("KO");
+      if (ris) Serial.println("#OK");
+        else  Serial.println("#KO");
       // vuoto buffer
       iCnt=0;
     }

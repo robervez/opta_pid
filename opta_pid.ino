@@ -20,7 +20,7 @@ void GestioneOutputs(){
   Serial.print("2;");  // numero di valori stampati
   Serial.print((float)iSommaTemp/iNumTemp);  // todo, splittare i due valori 
   Serial.print(";");  
-  Serial.println(0);
+  Serial.println(lastPIDinput);
 
   // resetto numero media valori input
     iSommaTemp =0;
@@ -153,10 +153,10 @@ void setup() {
 
   iCurrentState=0;
 
-  Serial.println("initializing pid...");
+  Serial.println("#initializing pid...");
 
   setupPID();
-  Serial.println("done.");
+  Serial.println("#done.");
   
   delay(100);
 

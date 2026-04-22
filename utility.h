@@ -2,6 +2,8 @@
 inline int StringSplit(String &strIn, String *strsOut, char separator){
   
   int StringCount = 0;
+  strIn.replace("\r","");
+  strIn.replace("\n","");
   // Split the string into substrings
   while (strIn.length() > 0)
   {
