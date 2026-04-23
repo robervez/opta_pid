@@ -5,6 +5,24 @@ static int iCnt=0;
 
 
 
+
+void InviaPacchettoDati(){
+  // invio output con valori dei sensori
+  Serial.print("A;");
+  Serial.print("2;");  // numero di valori stampati
+  Serial.print((float)iSommaTemp/iNumTemp);  // todo, splittare i due valori 
+  Serial.print(";");  
+  Serial.println(lastPIDinput);
+
+  // resetto numero media valori input
+    iSommaTemp =0;
+    iNumTemp =0;
+}
+
+
+
+
+
 int InizioCiclo(){
   // Solo se ciclo è spento
   if (iCurrentState)  return 0;
